@@ -1,18 +1,18 @@
 "use client"
 
-import { Router } from "lucide-react";
-import {useSession} from "next-auth/react"
-import router from "next/router";
 import { useEffect } from "react"
+import { useRouter } from "next/router"
+import { useSession } from "next-auth/react"
 
-export function Redirect(){
-    const session  = useSession();
-    useEffect(()=>{
-        if(session?.data?.user){
-        router.push("/dashboard")
-        }
+export function Redirect() {
+  const router = useRouter()
+  const { data: session } = useSession()
 
-    
-    },[session])
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/dashboard")
+    }
+  }, [session, router])
 
+  return null
 }
